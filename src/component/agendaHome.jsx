@@ -1,10 +1,14 @@
+
+
 import {Context} from "../store/appContext"
 import { useContext, useEffect } from "react";
+import '../App.css'
+
 
 
 const Agenda = () => {
     const {store, actions} = useContext(Context)
-    console.log("contact fetch", store.contactFetch[0]?.full_name)
+    console.log("contact fetch", store.contactFetch[0])
 
     return (
         <>
@@ -12,12 +16,12 @@ const Agenda = () => {
                 <button type="button" className="btn btn-success">Add new contact
                 </button>
                 <div className="card" style={{ width: "18rem" }}>
-                    <img src="..." className="card-img-top" alt="..." />
+                    <img src="https://picsum.photos/200" className="card-img-top avatar" alt="..." />
                     <div className="card-body">
-                        <h5 className="card-title">nombre{store.contactFetch.full_name}</h5>
-                        <p className="card-text">123 Hillcrest</p>
-                        <p className="card-text">+56998565852</p>
-                        <p className="card-text">boby.martinez@gmail.com</p>
+                        <h5 className="card-title">{store.contactFetch[0]?.full_name}</h5>
+                        <p className="card-text">{store.contactFetch[0]?.address}</p>
+                        <p className="card-text">{store.contactFetch[0]?.phone}</p>
+                        <p className="card-text">{store.contactFetch[0]?.email}</p>
                         <a href="#" className="btn btn-primary">Editar</a>
                         <a href="#" className="btn btn-primary">Eliminar</a>
                     </div>

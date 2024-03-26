@@ -1,5 +1,5 @@
 import Agenda from "../component/agendaHome"
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, } from "react";
 import {Context} from "../store/appContext"
 
 
@@ -8,6 +8,7 @@ const {store, actions} = useContext(Context)
     useEffect(()=>{
 		actions.getContacts()
 			}, [])
+
 
 
     return (

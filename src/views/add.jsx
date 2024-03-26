@@ -1,6 +1,9 @@
 import AddContact from "../component/addContact"
 
 const Add = () => {
+
+    
+
     return (
         <>
             <AddContact/>
