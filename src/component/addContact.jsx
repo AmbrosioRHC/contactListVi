@@ -56,7 +56,7 @@ const AddContact = () => {
 
 
                     <div className="col-12">
-                        <button type="submit" className="btn btn-primary col-12">save</button>
+                        <button onClick={actions.handleClick} type="button" className="btn btn-primary col-12">save</button>
                     </div>
                     <p>or get back to contacts</p>
                 </form>

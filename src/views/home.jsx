@@ -12,8 +12,12 @@ const {store, actions} = useContext(Context)
 
 
     return (
+        // aca va el código que me generara componentes mediante la info del array
         <>
-            <Agenda/>
+        {store.contactFetch?.map((elemnt, index) => {
+            return <Agenda key={index} elemntProp={elemnt}/>
+        })}
+            
         </>
     );
 };

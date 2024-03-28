@@ -1,15 +1,15 @@
 
 
-import {Context} from "../store/appContext"
+import { Context } from "../store/appContext"
 import { useContext, useEffect } from "react";
 import '../App.css'
 
 
 
-const Agenda = () => {
-    const {store, actions} = useContext(Context)
-    console.log("contact fetch", store.contactFetch[0])
-
+const Agenda = ({ elemntProp}) => {
+    const { store, actions } = useContext(Context)
+    console.log("elemntProp", elemntProp)
+    const { full_name, address, phone, email } = elemntProp;
     return (
         <>
             <div className="container">
@@ -18,12 +18,15 @@ const Agenda = () => {
                 <div className="card" style={{ width: "18rem" }}>
                     <img src="https://picsum.photos/200" className="card-img-top avatar" alt="..." />
                     <div className="card-body">
-                        <h5 className="card-title">{store.contactFetch[0]?.full_name}</h5>
-                        <p className="card-text">{store.contactFetch[0]?.address}</p>
-                        <p className="card-text">{store.contactFetch[0]?.phone}</p>
-                        <p className="card-text">{store.contactFetch[0]?.email}</p>
+                        <h5 className="card-title">{full_name}</h5>
+                        <p className="card-text">{address}</p>
+                        <p className="card-text">{phone}</p>
+                        <p className="card-text">{email}</p>
                         <a href="#" className="btn btn-primary">Editar</a>
-                        <a href="#" className="btn btn-primary">Eliminar</a>
+                        <button type="button" 
+                        onClick={actions.handleEliminar}
+                        href="#" 
+                        className="btn btn-primary">Eliminar</button>
                     </div>
                 </div>
             </div>
