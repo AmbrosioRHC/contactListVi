@@ -1,8 +1,8 @@
-// appContext.jsx
+// flux.jsx
 
 import React, { createContext, useReducer, useEffect } from 'react';
 
-export const Context = createContext(); // Exportamos Context aquí
+export const Context = createContext();
 
 const initialState = {
   contacts: [],
