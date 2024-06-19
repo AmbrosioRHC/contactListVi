@@ -1,11 +1,9 @@
-// flux.jsx
-
 import React, { createContext, useReducer, useEffect } from 'react';
 
 export const Context = createContext();
 
 const initialState = {
-  contacts: [],
+  contacts: [], // Estado inicial vacío para los contactos
   error: null,
 };
 
@@ -14,7 +12,7 @@ const reducer = (state, action) => {
     case 'FETCH_CONTACTS_SUCCESS':
       return {
         ...state,
-        contacts: action.payload,
+        contacts: action.payload.contacts, // Asigna directamente el array de contactos
         error: null,
       };
     case 'FETCH_CONTACTS_FAILURE':
@@ -26,6 +24,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
+
 
 export const injectContext = (Component) => {
   const Wrapper = (props) => {
@@ -44,6 +43,7 @@ export const injectContext = (Component) => {
         const data = await response.json();
         dispatch({ type: 'FETCH_CONTACTS_SUCCESS', payload: data });
       } catch (error) {
+        console.error('Error fetching contacts:', error);
         dispatch({ type: 'FETCH_CONTACTS_FAILURE', payload: error.message });
       }
     };
