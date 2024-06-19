@@ -1,3 +1,4 @@
+/* Estilos generales para la aplicación */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -33,13 +34,110 @@
   }
 }
 
-.card {
-  padding: 2em;
+/* Estilos para el contenedor principal de la lista de contactos */
+.contact-list {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f8f9fa; /* Color de fondo */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
+/* Estilos para cada contacto individual */
+.contact-item {
+  background-color: #ffffff; /* Fondo del contacto */
+  border-radius: 8px; /* Bordes redondeados */
+  margin-bottom: 20px; /* Espacio entre contactos */
+  padding: 20px; /* Espaciado interno */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilos para la información del contacto */
+.contact-info {
+  display: flex;
+  align-items: center;
+}
+
+.contact-avatar {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.contact-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact-details {
+  flex-grow: 1;
+}
+
+.contact-details h2 {
+  margin-bottom: 5px;
+  color: #343a40; /* Color del título */
+}
+
+.contact-details p {
+  margin: 5px 0;
+  color: #6c757d; /* Color del texto */
+}
+
+/* Estilos para los botones de acción (editar y eliminar) */
+.contact-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-left: 10px;
+  color: #6c757d; /* Color del ícono */
+}
+
+.action-button:hover {
+  opacity: 0.7;
+  color: #343a40; /* Color del ícono al pasar el mouse */
+}
+
+.add-button {
+  background-color: #28a745; /* Color de fondo */
+  color: #ffffff; /* Color del texto */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px; /* Bordes redondeados */
+  margin-bottom: 20px;
+  cursor: pointer;
+  text-decoration: none; /* Quitar subrayado de enlace */
+  display: inline-block;
+  transition: background-color 0.3s ease; /* Transición */
+}
+
+.add-button:hover {
+  background-color: #218838; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilos para el enlace de agregar contacto */
+.add-button-link {
+  color: #ffffff; /* Color del texto */
+  text-decoration: none; /* Quitar subrayado de enlace */
+}
+
+.add-button-link:hover {
+  text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Estilos para el texto de enlace */
 .read-the-docs {
   color: #888;
 }
-
-.avatar{
- border-radius: 50%;}
