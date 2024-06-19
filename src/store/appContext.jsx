@@ -1,3 +1,5 @@
+// appContext.js
+
 import React, { createContext, useReducer, useEffect } from 'react';
 
 export const Context = createContext();
@@ -12,7 +14,7 @@ const reducer = (state, action) => {
     case 'FETCH_CONTACTS_SUCCESS':
       return {
         ...state,
-        contacts: action.payload.contacts, // Asigna directamente el array de contactos
+        contacts: action.payload.contacts,
         error: null,
       };
     case 'FETCH_CONTACTS_FAILURE':
@@ -20,18 +22,15 @@ const reducer = (state, action) => {
         ...state,
         error: action.payload,
       };
-    case 'DELETE_CONTACT':
-      return {
-        ...state,
-        contacts: state.contacts.filter(contact => contact.id !== action.payload),
-      };
     case 'UPDATE_CONTACT':
+      const updatedContacts = state.contacts.map(contact =>
+        contact.id === action.payload.id ? action.payload : contact
+      );
       return {
         ...state,
-        contacts: state.contacts.map(contact =>
-          contact.id === action.payload.id ? { ...contact, ...action.payload.updatedContact } : contact
-        ),
+        contacts: updatedContacts,
       };
+    // Añadir más casos según sea necesario
     default:
       return state;
   }
@@ -40,10 +39,12 @@ const reducer = (state, action) => {
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Efecto para cargar los contactos al iniciar la aplicación
   useEffect(() => {
     fetchContacts();
   }, []);
 
+  // Función para cargar los contactos desde la API
   const fetchContacts = async () => {
     try {
       const response = await fetch('https://playground.4geeks.com/contact/agendas/losperros/contacts');
@@ -58,41 +59,8 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const deleteContact = async (id) => {
-    try {
-      const response = await fetch(`https://playground.4geeks.com/contact/agendas/losperros/contacts/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete contact');
-      }
-      dispatch({ type: 'DELETE_CONTACT', payload: id });
-    } catch (error) {
-      console.error('Error deleting contact:', error);
-    }
-  };
-
-  const updateContact = async (id, updatedContact) => {
-    try {
-      const response = await fetch(`https://playground.4geeks.com/contact/agendas/losperros/contacts/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedContact),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to update contact');
-      }
-      const data = await response.json();
-      dispatch({ type: 'UPDATE_CONTACT', payload: { id, updatedContact: data } });
-    } catch (error) {
-      console.error('Error updating contact:', error);
-    }
-  };
-
   return (
-    <Context.Provider value={{ state, dispatch, deleteContact, updateContact }}>
+    <Context.Provider value={{ state, dispatch }}>
       {children}
     </Context.Provider>
   );

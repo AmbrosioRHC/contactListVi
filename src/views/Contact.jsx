@@ -3,28 +3,33 @@ import { Link } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import "../App.css";
-
 const Contact = () => {
-  const { state, deleteContact, updateContact } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
   const [editMode, setEditMode] = useState(false);
   const [editedContact, setEditedContact] = useState(null);
 
   const handleDelete = (id) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este contacto?')) {
-      deleteContact(id);
+      fetch(`https://playground.4geeks.com/contact/agendas/losperros/contacts/${id}`, {
+        method: 'DELETE',
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to delete contact');
+          }
+          // Eliminar el contacto del estado global si la respuesta es exitosa
+          dispatch({ type: 'DELETE_CONTACT', payload: id });
+        })
+        .catch(error => {
+          console.error('Error deleting contact:', error);
+          // Manejar el error adecuadamente (mostrar mensaje al usuario, etc.)
+        });
     }
   };
-
-  const handleUpdate = (id, updatedContact) => {
-    // Implementa la lógica para actualizar el contacto aquí
-    console.log('Actualizar contacto:', id, updatedContact);
-    // Finaliza el modo de edición
-    setEditMode(false);
-    setEditedContact(null);
-  };
+  
+  
 
   const handleEdit = (contact) => {
-    // Activa el modo de edición y guarda el contacto a editar
     setEditMode(true);
     setEditedContact(contact);
   };
@@ -40,7 +45,12 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editedContact) {
-      handleUpdate(editedContact.id, editedContact);
+      // Aquí deberías enviar una acción para actualizar el contacto en el contexto global
+      dispatch({ type: 'UPDATE_CONTACT', payload: editedContact });
+
+      // Finaliza el modo de edición
+      setEditMode(false);
+      setEditedContact(null);
     }
   };
 
